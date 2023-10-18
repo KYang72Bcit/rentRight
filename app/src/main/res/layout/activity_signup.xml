@@ -15,6 +15,7 @@
 
         <!-- Logo -->
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="143dp"
             android:layout_height="142dp"
             android:layout_marginTop="16dp"
@@ -22,6 +23,7 @@
 
         <!-- Welcome Message -->
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/find_your_perfect_home"

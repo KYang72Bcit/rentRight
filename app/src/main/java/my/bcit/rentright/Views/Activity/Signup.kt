@@ -67,24 +67,24 @@ class Signup : AppCompatActivity() {
     private fun toSignup(){
         getTextWatcherReady()
         registerButton.setOnClickListener{
-            val checkList :List<Boolean> = listOf(
-                validator.verifyIsNotEmpty(inputName, displayName),
-                validator.verifyIsNotEmpty(inputEmail, displayEmail),
-                validator.verifyIsNotEmpty(inputPassword, displayPassword),
-                validator.verifyIsNotEmpty(inputConfirmPassword, displayConfirmPassword),
-                validator.verifyEmail(inputEmail, displayEmail),
-                validator.verifyPasswordEqual(inputPassword, inputConfirmPassword, displayConfirmPassword))
-            for(i in checkList.indices) {
-                if (!checkList[i]) {
-                    return@setOnClickListener
-                } else {
-                    val intent = Intent(this, HomePageActivity::class.java)
-                    startActivity(intent)
-
-                }
+            if(isAllFieldsValid()){
+                val intent = Intent(this, HomePageActivity::class.java)
+                startActivity(intent)
+            } else {
+                return@setOnClickListener
             }
-
         }
+
+    }
+    private fun isAllFieldsValid(): Boolean {
+        val checkList :List<Boolean> = listOf(
+            validator.verifyIsNotEmpty(inputName, displayName),
+            validator.verifyIsNotEmpty(inputEmail, displayEmail),
+            validator.verifyIsNotEmpty(inputPassword, displayPassword),
+            validator.verifyIsNotEmpty(inputConfirmPassword, displayConfirmPassword),
+            validator.verifyEmail(inputEmail, displayEmail),
+            validator.verifyPasswordEqual(inputPassword, inputConfirmPassword, displayConfirmPassword))
+        return checkList.all { it }
 
     }
 

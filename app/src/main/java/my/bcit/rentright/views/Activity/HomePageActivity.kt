@@ -1,4 +1,4 @@
-package my.bcit.rentright.Views.Activity
+package my.bcit.rentright.views.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

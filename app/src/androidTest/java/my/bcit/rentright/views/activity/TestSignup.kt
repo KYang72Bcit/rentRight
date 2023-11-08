@@ -2,24 +2,19 @@ package my.bcit.rentright.views.activity
 
 import android.app.Activity
 import android.app.Instrumentation
-import android.view.View
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.bumptech.glide.util.Util
-import com.google.android.material.textfield.TextInputLayout
 import my.bcit.rentright.R
-import my.bcit.rentright.Views.Activity.HomePageActivity
-import my.bcit.rentright.Views.Activity.Landing
-import my.bcit.rentright.Views.Activity.Login
-import my.bcit.rentright.Views.Activity.Signup
+import my.bcit.rentright.views.Activity.HomePageActivity
+import my.bcit.rentright.views.Activity.Login
+import my.bcit.rentright.views.Activity.Signup
 import my.bcit.rentright.testUtility.Utils
 
 import org.junit.After

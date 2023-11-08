@@ -5,7 +5,7 @@
     android:id="@+id/AllOfPageSingUp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.Activity.Signup">
+    tools:context=".views.Activity.Signup">
 
     <LinearLayout
         android:layout_width="match_parent"

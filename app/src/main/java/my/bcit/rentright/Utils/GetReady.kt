@@ -4,8 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import my.bcit.rentright.Views.Activity.HomePageActivity
-import my.bcit.rentright.Views.Activity.Login
+import my.bcit.rentright.views.Activity.HomePageActivity
 
 class GetReady {
 

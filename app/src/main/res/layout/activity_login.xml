@@ -5,7 +5,7 @@
     android:id="@+id/AllOfPageLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.Activity.Login">
+    tools:context=".views.Activity.Login">
 
 <!--    Email -->
 

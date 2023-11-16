@@ -46,8 +46,8 @@ class Validator {
     }
     fun verifyPasswordLength(inputPassword: TextInputEditText, displayPassword : TextInputLayout): Boolean {
         val pwd = inputPassword.text.toString().trim()
-        if (pwd.length < 6) {
-            displayPassword.error = "Passwords should be more than 6 characters"
+        if (pwd.length < 7) {
+            displayPassword.error = "Passwords should be more than 7 characters"
             return false
         }
         return true

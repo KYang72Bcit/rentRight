@@ -30,6 +30,7 @@ class Landing : AppCompatActivity() {
         listingViewModel.allListings.observe(this) { listings ->
             listings?.let{
                 navigateToHome(it)
+                //navigateToHome()
             } ?:run {
                 CustomToast(this, "Sorry, Something Goes Wrong!", "RED").show()
             }
@@ -52,6 +53,14 @@ class Landing : AppCompatActivity() {
         finish()
         }
     }
+
+//    private fun navigateToHome(){
+//
+//        intent = Intent(this, HomePageActivity::class.java)
+//        startActivity(intent)
+//        finish()
+//    }
+//}
 
 
 

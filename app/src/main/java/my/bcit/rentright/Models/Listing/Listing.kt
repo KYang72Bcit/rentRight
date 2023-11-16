@@ -17,6 +17,7 @@ data class Listing(
     val address: String,
     val city: String,
     val state: String,
-    val zip: String
+    val zip: String,
+    val id: String
 )
 

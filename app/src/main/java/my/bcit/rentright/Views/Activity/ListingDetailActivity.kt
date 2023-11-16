@@ -84,6 +84,7 @@ class ListingDetailActivity : AppCompatActivity() {
     }
 
     private fun setSentEmailBtn(emailBtn : Button) {
+        emailBtn.setOnClickListener{
         val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:")
             putExtra(Intent.EXTRA_EMAIL, arrayOf(listing.publisherEmail))
@@ -93,6 +94,7 @@ class ListingDetailActivity : AppCompatActivity() {
         if (emailIntent.resolveActivity(packageManager) != null) {
             startActivity(emailIntent)
         }
+    }
     }
 
     private fun setCallBtn(callBtn: Button) {

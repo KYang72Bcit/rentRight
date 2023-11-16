@@ -57,7 +57,7 @@ class ListingDetailFragment : Fragment() {
 
         if (listing != null) {
             setViews(rent, title, like,  image, listing)
-            setImage(image, listing.images[1])
+            setImage(image, listing.images[0])
         } else {
             CustomToast(requireContext(), "no listing info", "red")
         }

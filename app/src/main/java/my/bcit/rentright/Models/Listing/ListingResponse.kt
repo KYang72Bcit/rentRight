@@ -7,6 +7,10 @@ import my.bcit.rentright.Models.User
 
 
 data class ListingResponse(
+    @SerializedName("_id")
+    @Expose
+    var id: String = "",
+
     @SerializedName("publisher")
     @Expose
     var publisher: User? = null,
@@ -74,6 +78,7 @@ fun ListingResponse.toListing(): Listing = Listing(
     publisherFavorite = publisher?.favorites?: emptyList(),
 
     title = title ?: "",
+    id = id ?:"",
     images = images ?: emptyList(),
     description = description ?: "",
     category = category ?: "",

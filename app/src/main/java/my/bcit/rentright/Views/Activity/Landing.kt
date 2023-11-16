@@ -54,13 +54,7 @@ class Landing : AppCompatActivity() {
         }
     }
 
-//    private fun navigateToHome(){
-//
-//        intent = Intent(this, HomePageActivity::class.java)
-//        startActivity(intent)
-//        finish()
-//    }
-//}
+
 
 
 

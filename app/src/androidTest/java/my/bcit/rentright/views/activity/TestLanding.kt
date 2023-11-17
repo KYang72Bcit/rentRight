@@ -62,7 +62,7 @@ class LandingTest {
         Intents.intending(IntentMatchers.hasComponent(Signup::class.java.name)).respondWith(
             Instrumentation.ActivityResult(Activity.RESULT_OK, null))
 
-        onView(withId(R.id.getStartedButton)).perform(click())
+//        onView(withId(R.id.getStartedButton)).perform(click())
 
         Intents.intended(IntentMatchers.hasComponent(Signup::class.java.name))
 

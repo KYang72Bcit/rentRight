@@ -7,12 +7,9 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
-import kotlinx.coroutines.launch
 import my.bcit.rentright.Models.Listing.ListingResponse
-import my.bcit.rentright.Models.User
 import my.bcit.rentright.R
 import my.bcit.rentright.Utils.CustomToast
 import my.bcit.rentright.ViewModels.ListingViewModel
@@ -94,9 +91,11 @@ class HomePageActivity : AppCompatActivity() {
     private fun observeUserForLogin(item: MenuItem) {
         userViewModel.currentUser.observe(this) { user ->
             if (user == null) {
+
                 navigateToLogin()
                 userViewModel.currentUser.removeObservers(this)
             } else {
+                Log.i("inHomeActivity", user.toString())
                 val fragment = if (item.itemId == R.id.nav_fav) FavFragment() else ProfileFragment()
                 switchToFragment(fragment)
                 userViewModel.currentUser.removeObservers(this)

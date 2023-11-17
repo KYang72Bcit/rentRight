@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,7 +20,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import my.bcit.rentright.Models.User
+import my.bcit.rentright.Models.User.User
 
 
 class UserViewModel: ViewModel() {
@@ -42,6 +41,22 @@ class UserViewModel: ViewModel() {
             currentUser.value = user
         }
     }
+    private suspend fun getCurrentUser(): User? {
+
+        return try {
+            val response = service?.getCurrent()
+            if (response?.isSuccessful == true && response.body()?.success == true) {
+                Log.i("getCurrentUser", response.body()!!.user.toString())
+                response.body()?.user
+            } else {
+
+                null
+            }
+        } catch (e: Exception) {
+
+            null
+        }
+    }
 
     fun login(email: TextInputEditText, pwd:TextInputEditText, context:Context, activity:Activity) {
 
@@ -53,27 +68,28 @@ class UserViewModel: ViewModel() {
         service?.login(userJson)?.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if (response.code() == 200) {
+
                     val body = response.body()?.toString()
+                    Log.i("on log in response", body.toString())
                     if (!body.isNullOrEmpty()) {
-                        val userData = JsonParser.parseString(body).asJsonObject
-
-
-                        storeUserData(userData, context)
 
                         getReady.goToHomePage(context, activity)
-                        statusMessage.value = "Sign in successful"
+                       // statusMessage.value = "Sign in successful"
+                        CustomToast(context, "Login Successful", "Green")
 
                     }
                 }
                 else {
                     Log.e("code", response.code().toString())
                     Log.e("Message :",  response.body().toString())
+                    CustomToast(context, response.body().toString(), "Red")
 
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 Log.e("Error on Login", t.message.toString())
+                CustomToast(context, "Network is not available", "Red")
 
 
             }
@@ -89,38 +105,26 @@ class UserViewModel: ViewModel() {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 if (response.code()==200){
+                    CustomToast(context, "Login Successful", "Green")
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         getReady.goToHomePage(context,activity) //GoTo Page Login
                     }, 4500)
                     //
                 }else{
-                        // add  a test
+                    CustomToast(context, response.body().toString(), "Red")
                     Log.i("response code", response.code().toString())
                     Log.i("error body", response.body().toString())
 
                 }
             }
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                CustomToast(context,"Network is not available", "Red")
 
             }
         })
     }
 
-    private suspend fun getCurrentUser(): User? {
-        return try {
-            val response = service?.getCurrent()
-            if (response?.isSuccessful == true) {
-                response.body()
-            } else {
-
-                null
-            }
-        } catch (e: Exception) {
-
-            null
-        }
-    }
 
      fun logout() {
          service?.logout()?.enqueue(object : Callback<JsonObject> {

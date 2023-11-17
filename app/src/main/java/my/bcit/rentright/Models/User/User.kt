@@ -1,4 +1,4 @@
-package my.bcit.rentright.Models
+package my.bcit.rentright.Models.User
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

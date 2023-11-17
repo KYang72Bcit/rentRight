@@ -81,6 +81,7 @@ class ListingViewModel: ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     val listingResponse = response.body() ?: emptyList()
+                    Log.i("search result", listingResponse.toString())
 
                     allListings.postValue(listingResponse)
 

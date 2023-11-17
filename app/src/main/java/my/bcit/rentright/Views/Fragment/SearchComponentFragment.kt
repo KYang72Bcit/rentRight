@@ -7,21 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-
 import com.google.android.material.button.MaterialButton
-
 import my.bcit.rentright.R
-
 import my.bcit.rentright.ViewModels.ListingViewModel
 
 
 
 class SearchComponentFragment : Fragment() {
         private lateinit var searchBtn:MaterialButton
-        private lateinit var searchValueEditText: EditText
+        private lateinit var searchValue: String
         private val listingViewModel: ListingViewModel by activityViewModels()
 
 
@@ -32,12 +28,6 @@ class SearchComponentFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search_component, container, false)
         searchBtn = view.findViewById(R.id.search_button)
-
-
-        searchBtn.setOnClickListener {
-            triggeringDetailClose()
-            search()
-        }
 
         return view
     }
@@ -54,17 +44,11 @@ class SearchComponentFragment : Fragment() {
         autoCompleteTextView.setOnClickListener{triggeringDetailClose()}
         autoCompleteTextView.setAdapter(filterAdapter)
         setAutoCompleteFilterListener(autoCompleteTextView, autoCompleteTextViewCity)
+        setAutoCompleteValueListener(autoCompleteTextViewCity, searchBtn)
 
 
     }
 
-    private fun search() {
-        val searchValue = searchValueEditText.text.toString().trim()
-        if (searchValue.isNotBlank()){
-            listingViewModel.searchListing("location.city", searchValue, requireContext())
-        }
-
-    }
     private fun triggeringDetailClose() {
         listingViewModel.onCloseDetailRequested()
     }
@@ -79,14 +63,26 @@ class SearchComponentFragment : Fragment() {
     }
 
     private fun setAutoCompleteFilterListener(filter: AutoCompleteTextView, value: AutoCompleteTextView) {
-        filter.setOnItemClickListener{ parent, view, position, id ->
+        filter.setOnItemClickListener{ parent, _, position, _ ->
             val selectedFilter = parent.adapter.getItem(position).toString()
             if (selectedFilter == "City") {
-                val cities = getCitiesFromListings() // 假设这个方法从列表中获取城市数据
+                val cities = getCitiesFromListings()
                 val cityAdapter = ArrayAdapter(requireContext(), R.layout.list_item, cities)
                 value.setAdapter(cityAdapter)
             } else {
                 value.setAdapter(null)
+            }
+
+        }
+    }
+    private fun setAutoCompleteValueListener(value: AutoCompleteTextView, searchBtn: MaterialButton){
+        value.setOnItemClickListener{ parent, _, position, _ ->
+            val selectedValue = parent.adapter.getItem(position).toString()
+            if (selectedValue.isNotBlank()){
+               searchValue = selectedValue
+                searchBtn.setOnClickListener {
+                    listingViewModel.searchListing("location.city", searchValue, requireContext())
+                }
             }
 
         }

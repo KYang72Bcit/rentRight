@@ -50,7 +50,9 @@ class SearchComponentFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
 
         val autoCompleteTextView = view.findViewById<AutoCompleteTextView>(R.id.actv_search_param)
+        autoCompleteTextView.setOnClickListener{triggeringDetailClose()}
         autoCompleteTextView.setAdapter(adapter)
+
 
     }
 
@@ -58,7 +60,6 @@ class SearchComponentFragment : Fragment() {
         val searchValue = searchValueEditText.text.toString().trim()
         if (searchValue.isNotBlank()){
             listingViewModel.searchListing("location.city", searchValue, requireContext())
-
         }
 
     }

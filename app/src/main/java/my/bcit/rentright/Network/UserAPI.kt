@@ -1,7 +1,6 @@
 package my.bcit.rentright.Network
 
 import com.google.gson.JsonObject
-import my.bcit.rentright.Models.User.User
 import my.bcit.rentright.Models.User.UserResponse
 import retrofit2.Call
 import retrofit2.Response

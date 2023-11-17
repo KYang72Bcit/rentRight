@@ -82,13 +82,12 @@ class ListingViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     val listingResponse = response.body() ?: emptyList()
 
-                    searchListingsResult.postValue(listingResponse)
-                   // Log.i("search result", listingResponse[0].category.toString())
-                    //Log.i("searchListingResult", searchListingsResult.value?.get(0)?.category.toString())
+                    allListings.postValue(listingResponse)
+
 
 
                 } else {
-                    searchListingsResult.postValue(emptyList())
+                    allListings.postValue(emptyList())
                     Log.e("SearchFragment", "Error: ${response.errorBody()?.string()}")
                 }
             }

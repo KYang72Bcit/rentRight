@@ -29,7 +29,7 @@ class Landing : AppCompatActivity() {
         setContentView(binding.root)
         listingViewModel.allListings.observe(this) { listings ->
             listings?.let{
-                navigateToHome(it)
+                navigateToHome()
                 //navigateToHome()
             } ?:run {
                 CustomToast(this, "Sorry, Something Goes Wrong!", "RED").show()
@@ -40,18 +40,24 @@ class Landing : AppCompatActivity() {
         }
 
 
-    private fun navigateToHome(listings: List<ListingResponse>){
+//    private fun navigateToHome(listings: List<ListingResponse>){
+//
+//        bundle = Bundle().apply {
+//            val gson = Gson()
+//            val listingsJson = gson.toJson(listings)
+//            putString("listings_json", listingsJson)
+//        }
+//        intent = Intent(this, HomePageActivity::class.java)
+//        intent.putExtras(bundle)
+//        startActivity(intent)
+//        finish()
+//        }
 
-        bundle = Bundle().apply {
-            val gson = Gson()
-            val listingsJson = gson.toJson(listings)
-            putString("listings_json", listingsJson)
-        }
+    private fun navigateToHome() {
         intent = Intent(this, HomePageActivity::class.java)
-        intent.putExtras(bundle)
         startActivity(intent)
         finish()
-        }
+    }
     }
 
 

@@ -28,23 +28,8 @@ import my.bcit.rentright.Views.Activity.place.PlacesReader
 
 class HomeFragment : Fragment() {
 
-    private lateinit var listings: List<Listing>
-    private  var searchResults:  List<Listing> = emptyList()
+    private var listings: List<Listing> = emptyList()
     private val listingViewModel: ListingViewModel by activityViewModels()
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val gson = Gson()
-        val listingsType = object : TypeToken<List<ListingResponse>>() {}.type
-        val listingsJson = arguments?.getString("listings_json")
-        val listingResponses: List<ListingResponse>? = listingsJson?.let { json ->
-            gson.fromJson(json, listingsType)
-        }
-        listings = listingResponses?.map{it.toListing()}?: emptyList()
-
-
-    }
 
 
     override fun onCreateView(
@@ -70,18 +55,18 @@ class HomeFragment : Fragment() {
         }
 
 
-        listingViewModel.searchListingsResult.observe(viewLifecycleOwner) { searchResult ->
+        listingViewModel.allListings.observe(viewLifecycleOwner) { searchResult ->
             searchResult?.let {results ->
                 run {
-                    searchResults = results.map { it.toListing() }
+                    listings = results.map { it.toListing() }
                 }
                 mapFragment?.getMapAsync { googleMap ->
                     googleMap.clear()
-                    addMarkers(googleMap, searchResults)
+                    addMarkers(googleMap, listings)
 
                     val bounds = LatLngBounds.builder()
-                    searchResults.forEach { bounds.include(it.latLng) }
-                    if (searchResults.isNotEmpty()) {
+                    listings.forEach { bounds.include(it.latLng) }
+                    if (listings.isNotEmpty()) {
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
                     }
                 }

@@ -8,8 +8,6 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.Gson
-import my.bcit.rentright.Models.Listing.ListingResponse
 import my.bcit.rentright.R
 import my.bcit.rentright.Utils.CustomToast
 import my.bcit.rentright.ViewModels.ListingViewModel
@@ -28,40 +26,21 @@ class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
-        val bundle = intent.extras
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
         listingViewModel.allListings.observe(this) { listings ->
             listings?.let {
-                updateUIWithListings(it)
+                switchToFragment(HomeFragment())
             } ?: run {
                 CustomToast(this, "Sorry, Something Goes Wrong!", "RED").show()
             }
         }
         setupBottomNav()
 
-
-        supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment()
-            .apply{
-                arguments = bundle
-            }).commit();
-
+       switchToFragment(HomeFragment())
     }
 
-    private fun updateUIWithListings(listings: List<ListingResponse>) {
-        val bundle = Bundle().apply {
-            val gson = Gson()
-            val listingsJson = gson.toJson(listings)
-            putString("listings_json", listingsJson)
-        }
 
-        val transaction = supportFragmentManager.beginTransaction()
-        val homeFragment = HomeFragment().apply {
-            arguments = bundle
-        }
-        transaction.replace(R.id.container, homeFragment)
-        transaction.commit()
-    }
 
     private fun setupBottomNav() {
         bottomNavigationView.setOnItemSelectedListener { item ->
@@ -95,7 +74,6 @@ class HomePageActivity : AppCompatActivity() {
                 navigateToLogin()
                 userViewModel.currentUser.removeObservers(this)
             } else {
-                Log.i("inHomeActivity", user.toString())
                 val fragment = if (item.itemId == R.id.nav_fav) FavFragment() else ProfileFragment()
                 switchToFragment(fragment)
                 userViewModel.currentUser.removeObservers(this)

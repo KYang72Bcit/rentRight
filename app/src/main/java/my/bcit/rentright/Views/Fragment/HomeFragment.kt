@@ -84,9 +84,8 @@ class HomeFragment : Fragment() {
     }
 
 
-
     private fun addMarkers(googleMap: GoogleMap, listings: List<Listing>) {
-        listings?.forEach { listing ->
+        listings.forEach { listing ->
             googleMap.addMarker(
                 MarkerOptions()
                     .position(listing.latLng)
@@ -132,7 +131,7 @@ class HomeFragment : Fragment() {
 
         googleMap.setOnMapLoadedCallback {
             val bounds = LatLngBounds.builder()
-            listings?.forEach { bounds.include(it.latLng) }
+            listings.forEach { bounds.include(it.latLng) }
             googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
         }
     }

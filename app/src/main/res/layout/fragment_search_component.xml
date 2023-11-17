@@ -27,17 +27,21 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_search_value"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+        android:id="@+id/search_value"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:hint="Enter value">
+        android:hint="Value"
+        app:endIconDrawable="@drawable/baseline_arrow_drop_down_24">
 
-        <EditText
-            android:id="@+id/et_search_value"
+        <AutoCompleteTextView
+            android:id="@+id/actv_search_value"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:completionThreshold="1"
+            android:background="@null"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

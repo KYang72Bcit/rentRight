@@ -26,5 +26,4 @@ interface UserAPI {
 
     @PATCH("user/current")
     fun updateUser(@Body data:HashMap<String, String>): Call<JsonObject>
-
 }

@@ -16,8 +16,6 @@ import retrofit2.Retrofit
 import my.bcit.rentright.Network.RentRightRetrofit
 import my.bcit.rentright.Utils.*
 import my.bcit.rentright.Network.UserAPI
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import my.bcit.rentright.Models.User.User
@@ -26,10 +24,8 @@ import my.bcit.rentright.Models.User.User
 class UserViewModel: ViewModel() {
     private var retrofit: Retrofit? = RentRightRetrofit.getInstance()
     private val service: UserAPI? = retrofit?.create(UserAPI::class.java)
-    private val statusMessage = MutableLiveData<String>()
     private val getReady = GetReady()
     val currentUser = MutableLiveData<User?>()
-    private lateinit var sharedPreferences: SharedPreferences
 
     init {
         checkCurrentUser()
@@ -74,7 +70,6 @@ class UserViewModel: ViewModel() {
                     if (!body.isNullOrEmpty()) {
 
                         getReady.goToHomePage(context, activity)
-                       // statusMessage.value = "Sign in successful"
                         CustomToast(context, "Login Successful", "Green")
 
                     }
@@ -146,30 +141,7 @@ class UserViewModel: ViewModel() {
 
          }
 
-
-    private fun storeUserData(userData:JsonObject, context:Context)  {
-        if (userData.get("success").asBoolean){
-            val user = userData.get("user").asJsonObject
-            var userID = user.asJsonObject.get("_id").asString
-            val userName =user.asJsonObject.get("username").asString
-            val userEmail = user.asJsonObject.get("email").asString
-            val userPhone = user.asJsonObject.get("phone")?.asString
-            sharedPreferences = context.getSharedPreferences(
-                "Rentright",
-                AppCompatActivity.MODE_PRIVATE
-            );
-
-            sharedPreferences.edit().apply{
-                putString("userName", userName)
-                putString("userEmail", userEmail)
-                putString("userPhone", userPhone)
-                putString("userID", userID)
-
-            }.apply()
-        }
-    }
-
-
+    fun 
 
 
 }

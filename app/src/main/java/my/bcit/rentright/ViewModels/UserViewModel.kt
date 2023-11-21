@@ -70,24 +70,24 @@ class UserViewModel: ViewModel() {
                     val body = response.body()?.toString()
                     Log.i("on log in response", body.toString())
                     if (!body.isNullOrEmpty()) {
-                        CustomToast(context, "Login Successful", "Green")
+                        CustomToast(context, "Login Successful", "GREEN").show()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            getReady.goToHomePage(context, activity) //GoTo Page Login
+                        }, 7000)
                         getReady.goToHomePage(context, activity)
-
-
                     }
                 }
                 else {
-                    CustomToast(context, "wrong passowrd/email", "Red")
                     Log.e("code", response.code().toString())
                     Log.e("Message :",  response.body().toString())
-                    CustomToast(context, response.body().toString(), "Red")
+                    CustomToast(context, "Check Password or Email", "RED").show()
 
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 Log.e("Error on Login", t.message.toString())
-                CustomToast(context, "Network is not available", "Red")
+                CustomToast(context, "Network is not available", "RED").show()
 
 
             }
@@ -103,21 +103,21 @@ class UserViewModel: ViewModel() {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 if (response.code()==200){
-                    CustomToast(context, "Login Successful", "Green")
+                    CustomToast(context, "Sign up Successful", "GREEN").show()
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         getReady.goToHomePage(context,activity) //GoTo Page Login
                     }, 4500)
                     //
                 }else{
-                    CustomToast(context, response.body().toString(), "Red")
+                    CustomToast(context, response.body().toString(), "RED").show()
                     Log.i("response code", response.code().toString())
                     Log.i("error body", response.body().toString())
 
                 }
             }
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                CustomToast(context,"Network is not available", "Red")
+                CustomToast(context,"Network is not available", "RED").show()
 
             }
         })
@@ -130,7 +130,7 @@ class UserViewModel: ViewModel() {
 
                  if (response.code() == 200) {
                      currentUser.value = null
-                     Log.i("operation", "logged out")
+
                      Log.i("user", currentUser.value.toString())
 
 

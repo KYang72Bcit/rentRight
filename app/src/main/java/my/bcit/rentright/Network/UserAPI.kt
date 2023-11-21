@@ -25,5 +25,5 @@ interface UserAPI {
 
 
     @PATCH("user/current")
-    fun updateUser(@Body data:HashMap<String, String>): Call<JsonObject>
+    suspend fun updateUser(@Body data:JsonObject): Response<UserResponse>
 }

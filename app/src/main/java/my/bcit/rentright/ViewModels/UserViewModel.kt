@@ -17,6 +17,7 @@ import my.bcit.rentright.Network.RentRightRetrofit
 import my.bcit.rentright.Utils.*
 import my.bcit.rentright.Network.UserAPI
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonPrimitive
 import kotlinx.coroutines.launch
 import my.bcit.rentright.Models.User.User
 
@@ -37,6 +38,7 @@ class UserViewModel: ViewModel() {
             currentUser.value = user
         }
     }
+
     private suspend fun getCurrentUser(): User? {
 
         return try {
@@ -68,13 +70,14 @@ class UserViewModel: ViewModel() {
                     val body = response.body()?.toString()
                     Log.i("on log in response", body.toString())
                     if (!body.isNullOrEmpty()) {
-
-                        getReady.goToHomePage(context, activity)
                         CustomToast(context, "Login Successful", "Green")
+                        getReady.goToHomePage(context, activity)
+
 
                     }
                 }
                 else {
+                    CustomToast(context, "wrong passowrd/email", "Red")
                     Log.e("code", response.code().toString())
                     Log.e("Message :",  response.body().toString())
                     CustomToast(context, response.body().toString(), "Red")
@@ -141,7 +144,43 @@ class UserViewModel: ViewModel() {
 
          }
 
-    fun 
+     fun updateUser(listingID:String) {
+
+        viewModelScope.launch {
+            val favoritesObject = JsonObject().apply {
+                add("favorites", JsonPrimitive(listingID))
+            }
+
+            val requestObject = JsonObject().apply {
+                add("\$push", favoritesObject)
+            }
 
 
-}
+            try {
+                val response = service?.updateUser(requestObject)
+                Log.i("updateUserCode", response!!.code().toString())
+                Log.i("uptaedUser", response!!.body().toString())
+//                if (response!!.isSuccessful && response.body()?.success == true){
+//                    Log.i("UpdateUser", response.body()!!.user.toString())
+//                    currentUser.value = response.body()!!.user
+//                }
+            } catch (e:Exception) {
+                Log.e("error in updateUser", e.message.toString())
+
+            }
+
+//            service?.updateUser(requestBody)?.let{ response ->
+//                if(response.isSuccessful){
+//
+//                    Log.i("updateUserFavorite", "success")
+//                    currentUser.value =
+//                } else {
+//                    Log.i("updateUserFavorite", "failed")
+//                }
+//            }
+            }
+        }
+
+    }
+
+

@@ -72,7 +72,7 @@ class ListingDetailFragment : Fragment() {
         val like: ImageButton = view.findViewById(R.id.listing_like_button)
 
         if (listing != null) {
-            setViews(rent, title, like, image, listing)
+            setViews(rent, title, image, listing)
             setImage(image, listing.images[0])
         } else {
             CustomToast(requireContext(), "no listing info", "red")
@@ -82,7 +82,9 @@ class ListingDetailFragment : Fragment() {
             if (currentUser == null) {
                 setLikeWithoutLogin(like)
             } else {
-                setLikeWithLoggedIn(like)
+                if (listing != null) {
+                    setLikeWithLoggedIn(like, listing)
+                }
 
             }
         })
@@ -100,7 +102,6 @@ class ListingDetailFragment : Fragment() {
     private fun setViews(
         rent: TextView,
         title: TextView,
-        like: ImageButton,
         image: ImageView,
         listing: Listing
     ) {
@@ -121,13 +122,13 @@ class ListingDetailFragment : Fragment() {
 
     }
 
-    private fun setLikeWithLoggedIn(like: ImageButton) {
+    private fun setLikeWithLoggedIn(like: ImageButton, listing:Listing) {
 
         like.setOnClickListener {
             if (like.tag == "not liked") {
                 like.setImageResource(R.drawable.baseline_favorite_50)
                 like.tag = "liked"
-                userViewModel
+                userViewModel.updateUser(listing.id)
             } else {
                 like.setImageResource(R.drawable.baseline_favorite_border_50)
                 like.tag = "not liked"

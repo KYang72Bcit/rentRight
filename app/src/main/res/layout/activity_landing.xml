@@ -29,28 +29,16 @@
         android:textColor="#888888"
         android:fontFamily="sans-serif" />
 
-    <!-- Image -->
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/subtitleText"
         android:layout_marginTop="0dp"
-        android:src="@drawable/landing" />
+        android:src="@drawable/landing"
+        android:contentDescription="@string/image_description" />
 
-    <!-- Get Started Button -->
-<!--    <Button-->
-<!--        android:id="@+id/getStartedButton"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:layout_marginBottom="50dp"-->
-<!--        android:text="Get Started"-->
-<!--        android:background="@drawable/button_bg"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:fontFamily="sans-serif-medium"-->
-<!--        android:textSize="16sp" />-->
+
 
 </RelativeLayout>

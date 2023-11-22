@@ -1,6 +1,6 @@
 package my.bcit.rentright.Views.Fragment
 
-import android.content.Context
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,7 +22,7 @@ import my.bcit.rentright.Utils.CustomToast
 import my.bcit.rentright.Utils.GetReady
 import my.bcit.rentright.ViewModels.UserViewModel
 import my.bcit.rentright.Views.Activity.ListingDetailActivity
-import my.bcit.rentright.Views.Activity.Login
+
 
 
 class ListingDetailFragment : Fragment() {
@@ -105,7 +105,7 @@ class ListingDetailFragment : Fragment() {
         image: ImageView,
         listing: Listing
     ) {
-        rent.text = "$${listing.rent}"
+        "$${listing.rent}".also { rent.text = it }
         title.text = listing.title
         image.setOnClickListener {
             val bundle = Bundle().apply {

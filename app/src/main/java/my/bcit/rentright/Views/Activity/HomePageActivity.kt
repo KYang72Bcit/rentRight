@@ -3,7 +3,6 @@ package my.bcit.rentright.Views.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -15,7 +14,6 @@ import my.bcit.rentright.ViewModels.UserViewModel
 import my.bcit.rentright.Views.Fragment.FavFragment
 import my.bcit.rentright.Views.Fragment.HomeFragment
 import my.bcit.rentright.Views.Fragment.ProfileFragment
-import my.bcit.rentright.Views.Fragment.SearchFragment
 
 class HomePageActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -47,7 +45,6 @@ class HomePageActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home -> switchToFragment(HomeFragment())
                 R.id.nav_refresh -> listingViewModel.refreshListings()
-                R.id.nav_search -> switchToFragment(SearchFragment())
                 R.id.nav_fav, R.id.nav_profile -> {
                     observeUserForLogin(item)
                 }

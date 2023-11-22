@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">RentRight</string>
-    <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="already_have_an_account_login">Already have an account? Login</string>
     <string name="user_name">User Name</string>
@@ -21,7 +20,6 @@
     <string name="empty">empty</string>
     <string name="home">Home</string>
     <string name="refresh">Refresh</string>
-    <string name="search">Search</string>
     <string name="favorite">Favorite</string>
     <string name="profile">Profile</string>
     <string name="sign_out">Log out</string>
@@ -34,7 +32,6 @@
     <string name="description">Description</string>
     <string name="call">Call</string>
     <string name="value">Value</string>
-    <string name="user__name">User Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="filter">Filter</string>
 </resources>

@@ -1,14 +1,6 @@
 <resources>
     <string name="app_name">RentRight</string>
-    <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="already_have_an_account_login">Already have an account? Login</string>
     <string name="user_name">User Name</string>
     <string name="email">Email</string>
@@ -28,8 +20,18 @@
     <string name="empty">empty</string>
     <string name="home">Home</string>
     <string name="refresh">Refresh</string>
-    <string name="search">Search</string>
     <string name="favorite">Favorite</string>
     <string name="profile">Profile</string>
     <string name="sign_out">Log out</string>
+    <string name="image_description">Image Description</string>
+    <string name="rent">Rent</string>
+    <string name="_2355_madison_ave">2355 Madison Ave</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="description">Description</string>
+    <string name="call">Call</string>
+    <string name="value">Value</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="filter">Filter</string>
 </resources>

@@ -6,55 +6,45 @@
     android:layout_height="match_parent"
     android:id="@+id/toast_container">
 
-    <RelativeLayout
-        android:id="@+id/button_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/button_card_parent"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        app:cardElevation="20dp"
+        app:cardCornerRadius="4dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/button_card_parent"
+        <RelativeLayout
+            android:id="@+id/button_click_parent"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="25dp"
-            app:cardElevation="20dp"
-            android:layout_marginRight="25dp"
-            app:cardCornerRadius="4dp">
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
 
-            <RelativeLayout
-                android:id="@+id/button_click_parent"
-                android:layout_width="match_parent"
+            <FrameLayout
+                android:id="@+id/button_accent_border"
+                android:layout_width="4dp"
                 android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
+                android:background="#3EAA56" />
 
-                <FrameLayout
-                    android:id="@+id/button_accent_border"
-                    android:layout_width="4dp"
-                    android:layout_height="match_parent"
-                    android:background="#3EAA56" />
+            <TextView
+                android:id="@+id/toast_text"
+                android:layout_width="334dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="17dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/this_is_a_custom_toast"
+                android:textColor="#131313"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/toast_text"
-                    android:layout_width="334dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="17dp"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:text="@string/this_is_a_custom_toast"
-                    android:textColor="#131313"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+        </RelativeLayout>
 
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

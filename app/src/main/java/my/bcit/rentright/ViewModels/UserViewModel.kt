@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,20 +16,17 @@ import retrofit2.Retrofit
 import my.bcit.rentright.Network.RentRightRetrofit
 import my.bcit.rentright.Utils.*
 import my.bcit.rentright.Network.UserAPI
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonPrimitive
 import kotlinx.coroutines.launch
-import my.bcit.rentright.Models.User
+import my.bcit.rentright.Models.User.User
 
 
 class UserViewModel: ViewModel() {
     private var retrofit: Retrofit? = RentRightRetrofit.getInstance()
     private val service: UserAPI? = retrofit?.create(UserAPI::class.java)
-    private val statusMessage = MutableLiveData<String>()
     private val getReady = GetReady()
     val currentUser = MutableLiveData<User?>()
-    private lateinit var sharedPreferences: SharedPreferences
 
     init {
         checkCurrentUser()
@@ -40,6 +36,23 @@ class UserViewModel: ViewModel() {
         viewModelScope.launch {
             val user = getCurrentUser()
             currentUser.value = user
+        }
+    }
+
+    private suspend fun getCurrentUser(): User? {
+
+        return try {
+            val response = service?.getCurrent()
+            if (response?.isSuccessful == true && response.body()?.success == true) {
+                Log.i("getCurrentUser", response.body()!!.user.toString())
+                response.body()?.user
+            } else {
+
+                null
+            }
+        } catch (e: Exception) {
+
+            null
         }
     }
 
@@ -53,27 +66,28 @@ class UserViewModel: ViewModel() {
         service?.login(userJson)?.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if (response.code() == 200) {
+
                     val body = response.body()?.toString()
+                    Log.i("on log in response", body.toString())
                     if (!body.isNullOrEmpty()) {
-                        val userData = JsonParser.parseString(body).asJsonObject
-
-
-                        storeUserData(userData, context)
-
+                        CustomToast(context, "Login Successful", "GREEN").show()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            getReady.goToHomePage(context, activity) //GoTo Page Login
+                        }, 7000)
                         getReady.goToHomePage(context, activity)
-                        statusMessage.value = "Sign in successful"
-
                     }
                 }
                 else {
                     Log.e("code", response.code().toString())
                     Log.e("Message :",  response.body().toString())
+                    CustomToast(context, "Check Password or Email", "RED").show()
 
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 Log.e("Error on Login", t.message.toString())
+                CustomToast(context, "Network is not available", "RED").show()
 
 
             }
@@ -89,38 +103,26 @@ class UserViewModel: ViewModel() {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 if (response.code()==200){
+                    CustomToast(context, "Sign up Successful", "GREEN").show()
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         getReady.goToHomePage(context,activity) //GoTo Page Login
                     }, 4500)
                     //
                 }else{
-                        // add  a test
+                    CustomToast(context, "this email has already been registered", "RED").show()
                     Log.i("response code", response.code().toString())
                     Log.i("error body", response.body().toString())
 
                 }
             }
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                CustomToast(context,"Network is not available", "RED").show()
 
             }
         })
     }
 
-    private suspend fun getCurrentUser(): User? {
-        return try {
-            val response = service?.getCurrent()
-            if (response?.isSuccessful == true) {
-                response.body()
-            } else {
-
-                null
-            }
-        } catch (e: Exception) {
-
-            null
-        }
-    }
 
      fun logout() {
          service?.logout()?.enqueue(object : Callback<JsonObject> {
@@ -128,7 +130,7 @@ class UserViewModel: ViewModel() {
 
                  if (response.code() == 200) {
                      currentUser.value = null
-                     Log.i("operation", "logged out")
+
                      Log.i("user", currentUser.value.toString())
 
 
@@ -142,30 +144,43 @@ class UserViewModel: ViewModel() {
 
          }
 
+     fun updateUser(listingID:String) {
 
-    private fun storeUserData(userData:JsonObject, context:Context)  {
-        if (userData.get("success").asBoolean){
-            val user = userData.get("user").asJsonObject
-            var userID = user.asJsonObject.get("_id").asString
-            val userName =user.asJsonObject.get("username").asString
-            val userEmail = user.asJsonObject.get("email").asString
-            val userPhone = user.asJsonObject.get("phone")?.asString
-            sharedPreferences = context.getSharedPreferences(
-                "Rentright",
-                AppCompatActivity.MODE_PRIVATE
-            );
+        viewModelScope.launch {
+            val favoritesObject = JsonObject().apply {
+                add("favorites", JsonPrimitive(listingID))
+            }
 
-            sharedPreferences.edit().apply{
-                putString("userName", userName)
-                putString("userEmail", userEmail)
-                putString("userPhone", userPhone)
-                putString("userID", userID)
+            val requestObject = JsonObject().apply {
+                add("\$push", favoritesObject)
+            }
 
-            }.apply()
+
+            try {
+                val response = service?.updateUser(requestObject)
+//                Log.i("updateUserCode", response!!.code().toString())
+                 Log.i("uptaedUser", response?.body().toString())
+//                if (response!!.isSuccessful && response.body()?.success == true){
+//                    Log.i("UpdateUser", response.body()!!.user.toString())
+//                    currentUser.value = response.body()!!.user
+//                }
+            } catch (e:Exception) {
+                Log.e("error in updateUser", e.message.toString())
+
+            }
+
+//            service?.updateUser(requestBody)?.let{ response ->
+//                if(response.isSuccessful){
+//
+//                    Log.i("updateUserFavorite", "success")
+//                    currentUser.value =
+//                } else {
+//                    Log.i("updateUserFavorite", "failed")
+//                }
+//            }
+            }
         }
+
     }
 
 
-
-
-}

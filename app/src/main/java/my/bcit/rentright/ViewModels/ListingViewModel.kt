@@ -46,7 +46,7 @@ class ListingViewModel: ViewModel() {
             try {
                 val response = service?.getAllListings()
                 if (response!!.isSuccessful) {
-                    allListings.postValue(response!!.body())
+                    allListings.postValue(response.body())
                 } else {
                     allListings.postValue(null)
                     Log.e(
@@ -69,7 +69,7 @@ class ListingViewModel: ViewModel() {
     }
 
 
-    fun searchListing(searchField: String, searchValue: String, context: Context) {
+    fun searchListing(searchField: String, searchValue: String) {
         val searchCriteria = JsonObject().apply {
             addProperty(searchField, searchValue)
         }
@@ -82,13 +82,12 @@ class ListingViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     val listingResponse = response.body() ?: emptyList()
 
-                    searchListingsResult.postValue(listingResponse)
-                   // Log.i("search result", listingResponse[0].category.toString())
-                    //Log.i("searchListingResult", searchListingsResult.value?.get(0)?.category.toString())
+                    allListings.postValue(listingResponse)
+
 
 
                 } else {
-                    searchListingsResult.postValue(emptyList())
+                    allListings.postValue(emptyList())
                     Log.e("SearchFragment", "Error: ${response.errorBody()?.string()}")
                 }
             }

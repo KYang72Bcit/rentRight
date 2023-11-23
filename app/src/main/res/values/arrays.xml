@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="user_type">
-        <item>Tenant</item>
-        <item>Landlord</item>
-    </string-array>
-</resources>

@@ -38,7 +38,7 @@
         android:layout_marginTop="0dp"
         android:src="@drawable/landing" />
 
-    <!-- Get Started Button -->
+<!--     Get Started Button -->
 <!--    <Button-->
 <!--        android:id="@+id/getStartedButton"-->
 <!--        android:layout_width="match_parent"-->

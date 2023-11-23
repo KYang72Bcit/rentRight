@@ -1,23 +1,25 @@
 package my.bcit.rentright.Views.Activity
 
-import android.app.Activity
-import android.app.Instrumentation
-import androidx.test.core.app.ActivityScenario
+import android.view.View
+import android.widget.ImageView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.matcher.IntentMatchers
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import my.bcit.rentright.R
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.Matchers.allOf
+import org.hamcrest.TypeSafeMatcher
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
 
 
 @RunWith(AndroidJUnit4::class)
@@ -30,10 +32,6 @@ class LandingTest {
     @Before
     fun setUp() {
         Intents.init()
-    }
-    @Before
-    fun launchActivity() {
-        ActivityScenario.launch(Landing::class.java)
     }
 
 
@@ -51,23 +49,30 @@ class LandingTest {
             .check(matches(withText("Discover your dream place to live")))
     }
 
+    fun withDrawable(resourceId: Int): Matcher<View> {
+        return object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description?) {
+                description?.appendText("ImageView with drawable resource $resourceId")
+            }
+
+            override fun matchesSafely(item: View?): Boolean {
+                if (item !is ImageView || item.drawable == null) return false
+                val context = item.context
+                val expectedDrawable = context.resources.getDrawable(resourceId, context.theme)
+                return item.drawable.constantState == expectedDrawable.constantState
+            }
+        }
+    }
+
+
     @Test
-    fun testImageViewDisplayed() {
+    fun testImageViewDisplayedWithCorrectDrawable() {
         onView(withId(R.id.imageView))
             .check(matches(isDisplayed()))
-    }
-//
-//    @Test
-//    fun testGetStartedButtonClickNavigatesToSignup() {
-//        Intents.intending(IntentMatchers.hasComponent(Signup::class.java.name)).respondWith(
-//            Instrumentation.ActivityResult(Activity.RESULT_OK, null))
-//
-//        onView(withId(R.id.getStartedButton)).perform(click())
-//
-//        Intents.intended(IntentMatchers.hasComponent(Signup::class.java.name))
-//
-//    }
 
+        onView(allOf(withId(R.id.imageView), withDrawable(R.drawable.landing)))
+            .check(matches(isDisplayed()))
+    }
 
     @After
     fun cleanUp() {

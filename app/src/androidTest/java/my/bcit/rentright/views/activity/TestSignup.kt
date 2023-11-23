@@ -2,42 +2,37 @@ package my.bcit.rentright.views.activity
 
 import android.app.Activity
 import android.app.Instrumentation
-import android.view.View
-import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.bumptech.glide.util.Util
-import com.google.android.material.textfield.TextInputLayout
 import my.bcit.rentright.R
 import my.bcit.rentright.Views.Activity.HomePageActivity
-import my.bcit.rentright.Views.Activity.Landing
 import my.bcit.rentright.Views.Activity.Login
 import my.bcit.rentright.Views.Activity.Signup
 import my.bcit.rentright.testUtility.Utils
-
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class TestSignup {
+class SignupTest {
+
+
+    @get:Rule
+    val activityRule = ActivityScenarioRule(Signup::class.java)
 
     @Before
     fun setUp() {
         Intents.init()
     }
-    @Before
-    fun launchActivity() {
-        ActivityScenario.launch(Signup::class.java)
-    }
+
     @Test
     fun testValidInput_ProceedsToHomePage() {
 
@@ -61,8 +56,6 @@ class TestSignup {
         val utils = Utils()
 
         onView(withId(R.id.registerButton)).perform(click())
-
-
         onView(withId(R.id.displayName)).check(matches(utils.hasError()))
         onView(withId(R.id.displayEmail)).check(matches(utils.hasError()))
         onView(withId(R.id.displayPassword)).check(matches(utils.hasError()))
@@ -146,15 +139,21 @@ class TestSignup {
             .check(matches(withText("Find Your Perfect Home")))
     }
 
-    @Test
-    fun testGoToLogin() {
+@Test
+fun testGoToLogin() {
+
+    Intents.init()
+    try {
         Intents.intending(IntentMatchers.hasComponent(Login::class.java.name)).respondWith(
             Instrumentation.ActivityResult(Activity.RESULT_OK, null)
         )
+
         onView(withId(R.id.loginTxt)).perform(click())
         Intents.intended(IntentMatchers.hasComponent(Login::class.java.name))
+    } finally {
+        Intents.release()
     }
-
+}
 
 
     @After

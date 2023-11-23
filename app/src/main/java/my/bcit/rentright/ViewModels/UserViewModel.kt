@@ -110,7 +110,7 @@ class UserViewModel: ViewModel() {
                     }, 4500)
                     //
                 }else{
-                    CustomToast(context, response.body().toString(), "RED").show()
+                    CustomToast(context, "this email has already been registered", "RED").show()
                     Log.i("response code", response.code().toString())
                     Log.i("error body", response.body().toString())
 
@@ -158,8 +158,8 @@ class UserViewModel: ViewModel() {
 
             try {
                 val response = service?.updateUser(requestObject)
-                Log.i("updateUserCode", response!!.code().toString())
-                Log.i("uptaedUser", response!!.body().toString())
+//                Log.i("updateUserCode", response!!.code().toString())
+                 Log.i("uptaedUser", response?.body().toString())
 //                if (response!!.isSuccessful && response.body()?.success == true){
 //                    Log.i("UpdateUser", response.body()!!.user.toString())
 //                    currentUser.value = response.body()!!.user

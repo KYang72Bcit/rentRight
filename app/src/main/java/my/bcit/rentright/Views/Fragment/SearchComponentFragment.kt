@@ -81,7 +81,7 @@ class SearchComponentFragment : Fragment() {
             if (selectedValue.isNotBlank()){
                searchValue = selectedValue
                 searchBtn.setOnClickListener {
-                    listingViewModel.searchListing("location.city", searchValue, requireContext())
+                    listingViewModel.searchListing("location.city", searchValue)
                 }
             }
 

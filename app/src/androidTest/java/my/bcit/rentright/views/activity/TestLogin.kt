@@ -3,6 +3,7 @@ package my.bcit.rentright.views.activity
 import android.app.Activity
 import android.app.Instrumentation
 import android.view.View
+import androidx.media3.common.util.Log
 import androidx.test.core.app.ActivityScenario
 
 import androidx.test.espresso.Espresso.onView
@@ -29,6 +30,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
+val startTime = System.currentTimeMillis()
+
 @RunWith(AndroidJUnit4::class)
 class TestLogin {
 
@@ -45,20 +49,23 @@ class TestLogin {
     fun testEmailForEmpty(){
         var utils = Utils()
         onView(withId(R.id.inputPassword)).perform(typeText("password123"))
+
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.loginButton)).perform(click())
 //        onView(withId(R.id.displayEmail)).check(matches(utils.hasError()))
 
+        // Stop timing after the expected result
+        val endTime = System.currentTimeMillis()
 
+        // Log the latency
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Login operation took $latency milliseconds.")
     }
 
     @After
     fun cleanUp() {
         Intents.release()
     }
-
-
-
-
-
-
 }

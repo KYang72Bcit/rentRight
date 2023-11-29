@@ -2,6 +2,7 @@ package my.bcit.rentright.views.activity
 
 import android.app.Activity
 import android.app.Instrumentation
+import android.util.Log
 import android.view.View
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -49,10 +50,19 @@ class TestSignup {
         onView(withId(R.id.inputPassword)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.inputConfirmPassword)).perform(typeText("password123"), closeSoftKeyboard())
 
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.registerButton)).perform(click())
 
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
 
-       Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        // End timing when the expected Intent is caught
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        val endTime = System.currentTimeMillis()
+
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Time taken for successful sign-up: $latency ms")
     }
 
     @Test
@@ -60,8 +70,17 @@ class TestSignup {
 
         val utils = Utils()
 
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.registerButton)).perform(click())
 
+        // End timing when the expected Intent is caught
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        val endTime = System.currentTimeMillis()
+
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Time taken for successful sign-up: $latency ms")
 
         onView(withId(R.id.displayName)).check(matches(utils.hasError()))
         onView(withId(R.id.displayEmail)).check(matches(utils.hasError()))
@@ -76,8 +95,18 @@ class TestSignup {
         onView(withId(R.id.inputPassword)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.inputConfirmPassword)).perform(typeText("password123"), closeSoftKeyboard())
 
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.registerButton)).perform(click())
         onView(withId(R.id.displayEmail)).check(matches(utils.hasError()))
+
+        // End timing when the expected Intent is caught
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        val endTime = System.currentTimeMillis()
+
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Time taken for successful sign-up: $latency ms")
     }
 
     @Test
@@ -88,9 +117,18 @@ class TestSignup {
         onView(withId(R.id.inputPassword)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.inputConfirmPassword)).perform(typeText("password156"), closeSoftKeyboard())
 
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.registerButton)).perform(click())
         onView(withId(R.id.displayConfirmPassword)).check(matches(utils.hasError()))
 
+        // End timing when the expected Intent is caught
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        val endTime = System.currentTimeMillis()
+
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Time taken for successful sign-up: $latency ms")
     }
 
     @Test
@@ -100,7 +138,18 @@ class TestSignup {
         onView(withId(R.id.inputPassword)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.inputConfirmPassword)).perform(typeText("password123"), closeSoftKeyboard())
 
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.registerButton)).perform(click())
+
+        // End timing when the expected Intent is caught
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        val endTime = System.currentTimeMillis()
+
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Time taken for successful sign-up: $latency ms")
+
         onView(withId(R.id.displayName)).check(matches(utils.hasError()))
 
     }
@@ -112,7 +161,18 @@ class TestSignup {
         onView(withId(R.id.inputPassword)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.inputConfirmPassword)).perform(typeText("password123"), closeSoftKeyboard())
 
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.registerButton)).perform(click())
+
+        // End timing when the expected Intent is caught
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        val endTime = System.currentTimeMillis()
+
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Time taken for successful sign-up: $latency ms")
+
         onView(withId(R.id.displayEmail)).check(matches(utils.hasError()))
     }
 
@@ -123,7 +183,18 @@ class TestSignup {
         onView(withId(R.id.inputEmail)).perform(typeText("test@email.com"), closeSoftKeyboard())
         onView(withId(R.id.inputConfirmPassword)).perform(typeText("password123"), closeSoftKeyboard())
 
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.registerButton)).perform(click())
+
+        // End timing when the expected Intent is caught
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        val endTime = System.currentTimeMillis()
+
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Time taken for successful sign-up: $latency ms")
+
         onView(withId(R.id.displayPassword)).check(matches(utils.hasError()))
     }
 
@@ -134,7 +205,18 @@ class TestSignup {
         onView(withId(R.id.inputEmail)).perform(typeText("test@email.com"), closeSoftKeyboard())
         onView(withId(R.id.inputPassword)).perform(typeText("password123"), closeSoftKeyboard())
 
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.registerButton)).perform(click())
+
+        // End timing when the expected Intent is caught
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        val endTime = System.currentTimeMillis()
+
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Time taken for successful sign-up: $latency ms")
+
         onView(withId(R.id.displayConfirmPassword)).check(matches(utils.hasError()))
 
     }
@@ -151,11 +233,22 @@ class TestSignup {
         Intents.intending(IntentMatchers.hasComponent(Login::class.java.name)).respondWith(
             Instrumentation.ActivityResult(Activity.RESULT_OK, null)
         )
+
+        // Start timing before the click
+        val startTime = System.currentTimeMillis()
+
         onView(withId(R.id.loginTxt)).perform(click())
+
+        // End timing when the expected Intent is caught
+        Intents.intended(IntentMatchers.hasComponent(HomePageActivity::class.java.name))
+        val endTime = System.currentTimeMillis()
+
+        val latency = endTime - startTime
+        Log.d("TestLatency", "Time taken for successful sign-up: $latency ms")
+
+
         Intents.intended(IntentMatchers.hasComponent(Login::class.java.name))
     }
-
-
 
     @After
     fun cleanUp() {

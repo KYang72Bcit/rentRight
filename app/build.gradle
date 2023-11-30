@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-
+    id 'jacoco'
     // Add secrets-gradle-plugin here
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
@@ -19,7 +19,23 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        testOptions {
+            unitTests.all {
+                jacoco {
+                    includeNoLocationClasses = true
+                    toolVersion = '0.8.7'
+                }
+            }
+        }
+
+        buildTypes {
+            debug {
+                testCoverageEnabled = true
+            }
+        }
     }
+
 
     buildTypes {
         release {
@@ -61,11 +77,13 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
+    testImplementation "org.mockito:mockito-core:3.12.4"
     androidTestImplementation('androidx.test:runner:1.5.2')
     androidTestImplementation('androidx.test:rules:1.5.0')
-
+    debugImplementation "androidx.fragment:fragment-testing:1.3.6"
     androidTestImplementation('androidx.test.espresso:espresso-intents:3.5.1')
+    testImplementation 'junit:junit:4.13.2'
+
 //Intents
     androidTestImplementation('androidx.test.espresso:espresso-intents:3.5.1')
     androidTestImplementation('androidx.test:runner:1.5.2')

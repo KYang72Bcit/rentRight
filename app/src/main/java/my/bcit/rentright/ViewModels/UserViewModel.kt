@@ -24,8 +24,8 @@ import my.bcit.rentright.Models.User.User
 
 class UserViewModel: ViewModel() {
     private var retrofit: Retrofit? = RentRightRetrofit.getInstance()
-    private val service: UserAPI? = retrofit?.create(UserAPI::class.java)
     private val getReady = GetReady()
+    private val service: UserAPI? = retrofit?.create(UserAPI::class.java)
     val currentUser = MutableLiveData<User?>()
 
     init {

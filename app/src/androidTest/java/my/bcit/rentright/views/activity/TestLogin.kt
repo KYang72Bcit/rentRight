@@ -76,7 +76,7 @@ class LoginTest {
         val startTime = System.currentTimeMillis()
 
         onView(withId(R.id.loginButton)).perform(click())
-//        onView(withId(R.id.displayEmail)).check(matches(utils.hasError()))
+
 
         // Stop timing after the expected result
         val endTime = System.currentTimeMillis()

@@ -63,11 +63,9 @@ class ListingViewModel: ViewModel() {
     }
 
 
-
     fun refreshListings() {
         getAllListings()
     }
-
 
     fun searchListing(searchField: String, searchValue: String) {
         val searchCriteria = JsonObject().apply {

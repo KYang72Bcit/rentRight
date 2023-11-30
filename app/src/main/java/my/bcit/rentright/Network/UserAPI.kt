@@ -1,7 +1,7 @@
 package my.bcit.rentright.Network
 
 import com.google.gson.JsonObject
-import my.bcit.rentright.Models.User
+import my.bcit.rentright.Models.User.UserResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -21,10 +21,9 @@ interface UserAPI {
 
 
     @GET("user/current")
-    suspend fun getCurrent(): Response<User>
+    suspend fun getCurrent(): Response<UserResponse>
 
 
     @PATCH("user/current")
-    fun updateUser(@Body data:HashMap<String, String>): Call<JsonObject>
-
+    suspend fun updateUser(@Body data:JsonObject): Response<UserResponse>
 }

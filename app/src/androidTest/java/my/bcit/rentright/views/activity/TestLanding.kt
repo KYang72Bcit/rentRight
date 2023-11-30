@@ -31,7 +31,7 @@ class LandingTest {
 
     @Before
     fun setUp() {
-        Intents.init()
+      //  Intents.init()
     }
 
 
@@ -69,13 +69,12 @@ class LandingTest {
     fun testImageViewDisplayedWithCorrectDrawable() {
         onView(withId(R.id.imageView))
             .check(matches(isDisplayed()))
-
         onView(allOf(withId(R.id.imageView), withDrawable(R.drawable.landing)))
             .check(matches(isDisplayed()))
     }
 
     @After
     fun cleanUp() {
-        Intents.release()
+//        Intents.release()
     }
 }

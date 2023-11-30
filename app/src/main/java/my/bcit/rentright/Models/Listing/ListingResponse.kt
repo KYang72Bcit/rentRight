@@ -3,7 +3,7 @@ package my.bcit.rentright.Models.Listing
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import my.bcit.rentright.Models.User
+import my.bcit.rentright.Models.User.User
 
 
 data class ListingResponse(

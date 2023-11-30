@@ -62,7 +62,7 @@ class ListingDetailActivity : AppCompatActivity() {
     private fun setViews(rent: TextView, address: TextView,
                          city: TextView, state: TextView,
                          zipcode: TextView, description: TextView, image: ImageView, listing:Listing){
-        rent.text = "$${listing.rent}"
+        "$${listing.rent}".also { rent.text = it }
         address.text = listing.address
         city.text = listing.city
         state.text = listing.state

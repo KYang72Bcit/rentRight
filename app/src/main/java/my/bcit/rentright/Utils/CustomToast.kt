@@ -1,5 +1,6 @@
 package my.bcit.rentright.Utils
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.content.Context
 import android.view.Gravity
@@ -13,10 +14,11 @@ import android.os.Handler
 import android.os.Looper
 import my.bcit.rentright.R
 
-
+@SuppressLint("InflateParams")
 class CustomToast(context: Context, message: String, color:String) {
     private val popupWindow: PopupWindow;
-    private val view:View = LayoutInflater.from(context).inflate(R.layout.custom_toast, null);
+    private val view: View = LayoutInflater.from(context).inflate(R.layout.custom_toast, null, false)
+
     init {
         val txtMsg = view.findViewById<TextView>(R.id.toast_text)
         val button = view.findViewById<FrameLayout>(R.id.button_accent_border)

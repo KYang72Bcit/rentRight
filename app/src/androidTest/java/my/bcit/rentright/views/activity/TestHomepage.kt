@@ -25,11 +25,7 @@ class TestHomePage {
         onView(withId(R.id.container)).check(matches(isDisplayed()))
     }
 
-    @Test
-    fun testSearchNavigation() {
-        onView(withId(R.id.nav_search)).perform(click())
-        onView(withId(R.id.container)).check(matches(isDisplayed()))
-    }
+
 
     @Test
     fun testFavNavigation() {

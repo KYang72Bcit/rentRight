@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,8 +29,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/logo"
-                    app:layout_collapseMode="parallax" />
+                    app:layout_collapseMode="parallax"
+                    android:contentDescription="@string/image_description" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -71,7 +72,7 @@
                 android:id="@+id/rentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rent"
+                android:text="@string/rent"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 android:gravity="center"
                 android:layout_marginBottom="16dp"
@@ -82,7 +83,7 @@
                 android:id="@+id/addressTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2355 Madison Ave"
+                android:text="@string/_2355_madison_ave"
                 android:textColor="#757575"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
@@ -101,7 +102,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="City"
+                    android:text="@string/city"
 
                     android:gravity="start"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
@@ -113,7 +114,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="State"
+                    android:text="@string/state"
                     android:gravity="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_marginEnd="8dp"/>
@@ -124,7 +125,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Zipcode"
+                    android:text="@string/zipcode"
                     android:gravity="end"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
             </LinearLayout>
@@ -132,7 +133,7 @@
                 android:id="@+id/descriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/description"
                 android:padding="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:background="?attr/selectableItemBackground"
@@ -144,7 +145,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Bottom Buttons Layout, aligned to the bottom of the RelativeLayout -->
+
     <LinearLayout
         android:id="@+id/bottomButtonsLayout"
         android:layout_width="match_parent"
@@ -159,14 +160,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Call"/>
+            android:minWidth="64dp"
+            android:maxWidth="150dp"
+            android:text="@string/call"
+            android:background="@android:color/darker_gray"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/emailButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Email"/>
+            android:minWidth="64dp"
+            android:maxWidth="150dp"
+            android:text="@string/email"
+            android:background="@android:color/darker_gray"
+            tools:ignore="ButtonStyle" />
 
     </LinearLayout>
 

@@ -22,13 +22,31 @@ class Landing : AppCompatActivity() {
 
         // Observe the allListings LiveData from the ListingViewModel.
         listingViewModel.allListings.observe(this) { listings ->
+
             if (listings != null && listings.isNotEmpty()) {
                 navigateToHome(listings)
             } else {
                 CustomToast(this, "Sorry, Something Went Wrong!", "RED").show()
             }
+            listings?.let{
+                navigateToHome()
+                //navigateToHome()
+            } ?:run {
+                CustomToast(this, "Sorry, Something Goes Wrong!", "RED").show()
+            }
+
         }
-    }
+
+        }
+
+
+    private fun navigateToHome() {
+        intent = Intent(this, HomePageActivity::class.java)
+        startActivity(intent)
+        finish()
+     }
+
+
 
     private fun navigateToHome(listings: List<ListingResponse>) {
         val gson = Gson()

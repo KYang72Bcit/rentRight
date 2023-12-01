@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: set up JDK 17
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
@@ -26,11 +26,13 @@ jobs:
       run: echo GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }} >> local.properties
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Package build artifacts
+      run: tar -cvzf build.tar.gz app/build/*
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
         name: build-artifacts
-        path: app/build
+        path: build.tar.gz
 
   test:
     needs: build

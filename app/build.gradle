@@ -24,7 +24,6 @@ android {
             unitTests.all {
                 jacoco {
                     includeNoLocationClasses = true
-                    toolVersion = '0.8.7'
                 }
             }
         }

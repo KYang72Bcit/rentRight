@@ -33,12 +33,7 @@ jobs:
       with:
         name: build-artifacts
         path: build.tar.gz
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: run tests
+    - name: Run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 34

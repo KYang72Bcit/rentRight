@@ -26,13 +26,6 @@ jobs:
       run: echo GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }} >> local.properties
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Package build artifacts
-      run: tar -cvzf build.tar.gz app/build/*
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifacts
-        path: build.tar.gz
     - name: Run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
@@ -40,3 +33,10 @@ jobs:
         target: google_apis
         arch: x86_64
         script: ./gradlew connectedCheck
+
+    - name: Upload artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts
+        path: app/build
